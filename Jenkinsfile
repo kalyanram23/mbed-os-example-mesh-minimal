@@ -55,8 +55,7 @@ def radioshields = [
 
 // Mesh interfaces: 6LoWPAN and Thread
 def meshinterfaces = [
-  "6lp",
-  "thd"
+  "6lp"
   ]
 
 def stepsForParallel = [:]
@@ -160,7 +159,9 @@ def buildStep(target, compilerLabel, toolchain, radioShield, meshInterface) {
           execute ("mbed deploy --protocol ssh")
           if (params.mbed_os_revision != '') {
             dir ("mbed-os") {
-              execute ("git checkout ${params.mbed_os_revision}")
+	      execute ("git remote add fork git@github.com:KariHaapalehto/mbed-os.git")
+              execute ("git remote update")
+              execute ("git checkout connect_timeout")
             }
           }
 
